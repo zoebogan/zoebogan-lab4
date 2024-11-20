@@ -50,6 +50,9 @@ public class EnigmaFrame extends JFrame {
 
         EncryptActionListener e = new EncryptActionListener();
         encrypt.addActionListener(e);
+
+        DecryptActionListener d = new DecryptActionListener();
+        decrypt.addActionListener(d);
            
         this.add(panelBrdLayout);
         this.pack();
@@ -68,6 +71,21 @@ public class EnigmaFrame extends JFrame {
             Enigma enigma = new Enigma(innerIdx, middleIdx, outerIdx, startIdx);
             String encryptedText = enigma.encrypt(inputData);
             output.setText(encryptedText);
+        }
+    }
+
+    private class DecryptActionListener implements ActionListener {
+        
+        public void actionPerformed(ActionEvent e) {
+            int innerIdx = inner.getSelectedIndex() + 1;
+            int middleIdx = middle.getSelectedIndex() + 1;
+            int outerIdx = outer.getSelectedIndex() + 1;
+            String startIdx = startPosition.getText(); 
+            String inputData = input.getText();
+
+            Enigma enigma = new Enigma(innerIdx, middleIdx, outerIdx, startIdx);
+            String decryptText = enigma.decrypt(inputData);
+            output.setText(decryptText);
         }
     }
 }
