@@ -47,9 +47,27 @@ public class EnigmaFrame extends JFrame {
         panelBrdLayout.add(dpanel, BorderLayout.NORTH);
         panelBrdLayout.add(inputPanel, BorderLayout.CENTER);
         panelBrdLayout.add(outputPanel, BorderLayout.SOUTH);
+
+        EncryptActionListener e = new EncryptActionListener();
+        encrypt.addActionListener(e);
            
         this.add(panelBrdLayout);
         this.pack();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    private class EncryptActionListener implements ActionListener {
+        
+        public void actionPerformed(ActionEvent e) {
+            int innerIdx = inner.getSelectedIndex() + 1;
+            int middleIdx = middle.getSelectedIndex() + 1;
+            int outerIdx = outer.getSelectedIndex() + 1;
+            String startIdx = startPosition.getText();
+            String inputData = input.getText();
+            
+            Enigma enigma = new Enigma(innerIdx, middleIdx, outerIdx, startIdx);
+            String encryptedText = enigma.encrypt(inputData);
+            output.setText(encryptedText);
+        }
     }
 }
